@@ -99,28 +99,57 @@
 @media(max-width:360px){.sgrid{grid-template-columns:1fr}}
 
 /* doctors */
-.dlead{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.dcardx{display:grid;grid-template-columns:200px 1fr;gap:24px;background:#fff;border-radius:28px;padding:18px;box-shadow:0 20px 50px -34px rgba(11,56,114,.4)}
-.dcardx .ph{border-radius:110px 110px 18px 18px;overflow:hidden;aspect-ratio:3/4;background:var(--blush);align-self:start}
-.dcardx .ph img{width:100%;height:100%;object-fit:cover;object-position:top}
-.dcardx .meta{padding:8px 6px 6px 0;display:flex;flex-direction:column;align-items:flex-start}
-.dcardx .te{color:var(--accent);font-size:.95rem}
-.dcardx h2{font-size:1.5rem;margin-top:2px}
-.dcardx .q{display:flex;gap:8px;align-items:center;margin-top:6px;font-weight:700;color:var(--navy);font-size:.88rem}
+/* hero: fanned arch portraits (final pose set here; GSAP animates in from below) */
+.dfan{position:relative;height:420px;--sp:110px;--w:180px;justify-self:center;width:100%}
+.fan-card{position:absolute;left:50%;bottom:0;width:var(--w);margin-left:calc(var(--w) / -2);transform:translateX(calc(var(--o) * var(--sp))) translateY(calc(var(--o) * var(--o) * 14px)) rotate(calc(var(--o) * 7deg));transform-origin:50% 100%}
+.fan-card:nth-child(2),.fan-card:nth-child(3){z-index:1}
+.fan-in{border-radius:999px 999px 18px 18px;overflow:hidden;aspect-ratio:3/4.2;background:#fff;border:5px solid rgba(255,255,255,.9);box-shadow:0 30px 50px -24px rgba(0,0,0,.6);position:relative}
+.fan-in img{width:100%;height:100%;object-fit:cover;object-position:top}
+.fan-in span{position:absolute;left:8px;right:8px;bottom:8px;padding:6px 8px;border-radius:10px;background:rgba(4,24,44,.78);color:#fff;font-size:.72rem;font-weight:600;text-align:center;line-height:1.2}
+@media(max-width:1100px){.dfan{--sp:84px;--w:150px;height:340px}}
+@media(max-width:900px){.dfan{--sp:66px;--w:118px;height:260px;max-width:420px;justify-self:start}.fan-in span{display:none}}
+
+/* stacking doctor cards (sticky on desktop; GSAP shrinks the card underneath) */
+.dstack{display:grid;gap:28px}
+.dcardx{display:grid;grid-template-columns:260px 1fr;gap:36px;background:#fff;border-radius:32px;padding:22px;box-shadow:0 30px 60px -36px rgba(11,56,114,.45);transform-origin:50% 0;position:relative}
+@media(min-width:1000px){.dcardx{position:sticky;top:calc(140px + var(--i) * 18px)}.dstack{gap:60px;padding-bottom:20px}}
+.dcardx .ph{align-self:start;perspective:900px}
+.ph-in{border-radius:130px 130px 20px 20px;overflow:hidden;aspect-ratio:3/4;background:var(--blush);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .4s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.ph-in img{width:100%;height:100%;object-fit:cover;object-position:top}
+.dcardx .meta{padding:10px 8px 6px 0;display:flex;flex-direction:column;align-items:flex-start;position:relative}
+.dcardx .num{position:absolute;right:4px;top:0;font-family:var(--display);font-size:clamp(3rem,6vw,5rem);line-height:1;color:var(--blush);pointer-events:none}
+.dcardx .te{color:var(--accent);font-size:1rem}
+.dcardx h2{font-size:clamp(1.6rem,2.6vw,2.1rem);margin-top:2px;position:relative}
+.dcardx .q{display:flex;gap:8px;align-items:center;margin-top:8px;font-weight:700;color:var(--navy);font-size:.92rem}
 .dcardx .q .ico{color:var(--accent);width:16px;height:16px}
-.dcardx p{font-size:.92rem;margin-top:10px}
-.dcardx .btn{margin-top:18px}
-.dtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.dtags a{font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:999px;background:var(--blush);color:var(--accent-deep)}
+.dcardx p{margin-top:12px;max-width:60ch}
+.dcardx .btn{margin-top:20px}
+.dtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.dtags a{font-size:.8rem;font-weight:600;padding:6px 13px;border-radius:999px;background:var(--blush);color:var(--accent-deep);transition:.2s}
 .dtags a:hover{background:var(--accent);color:#fff}
-.dprofile{display:grid;gap:14px;margin-top:16px;width:100%}
+
+/* education / experience timeline: line drawn via --line */
+.dprofile{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px;width:100%}
 .dprofile h4{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-.dprofile ul{margin-top:6px;display:grid;gap:8px;border-left:2px solid var(--blush);padding-left:12px}
+.dprofile ul{margin-top:8px;display:grid;gap:10px;padding-left:16px;position:relative}
+.dprofile ul::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;border-radius:2px;background:linear-gradient(var(--accent),var(--sky));transform:scaleY(var(--line,1));transform-origin:top}
+.dprofile li{position:relative}
+.dprofile li::before{content:"";position:absolute;left:-20px;top:5px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--accent)}
 .dprofile li span{display:block;font-size:.74rem}
-.dprofile li b{display:block;color:var(--navy);font-size:.88rem}
+.dprofile li b{display:block;color:var(--navy);font-size:.9rem}
 .dprofile li small{display:block;font-size:.8rem}
-@media(max-width:1100px){.dlead{grid-template-columns:1fr}}
-@media(max-width:560px){.dcardx{grid-template-columns:1fr}.dcardx .ph{max-width:240px}}
+@media(max-width:1000px){.dcardx{grid-template-columns:200px 1fr;gap:24px}}
+@media(max-width:700px){.dcardx{grid-template-columns:1fr;padding:16px}.dcardx .ph{max-width:240px}.dprofile{grid-template-columns:1fr}.dcardx .num{top:-4px}}
+
+/* scrolling specialities band */
+.marquee{margin:90px 0 0;overflow:hidden;background:var(--navy);color:#fff;transform:rotate(-1.5deg);padding:18px 0;box-shadow:0 20px 40px -24px rgba(11,56,114,.6)}
+.mq-track{display:flex;width:max-content;animation:mq 38s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+.mq-track>span{display:flex}
+.mq-track em{font-style:normal;font-family:var(--display);font-size:clamp(1.3rem,2.4vw,2rem);white-space:nowrap;display:inline-flex;align-items:center}
+.mq-track i{font-style:normal;color:var(--sky);font-size:.6em;margin:0 26px}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.mq-track{animation:none}.ph-in{transition:none}}
 
 /* about */
 .about2{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}

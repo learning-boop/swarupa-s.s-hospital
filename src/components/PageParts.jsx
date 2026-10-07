@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Ico, paths } from './Icons'
 
-/** Navy page header with breadcrumbs, title and optional photo (right, arch-shaped). */
-export function PageHero({ crumbs = [], eyebrow, title, intro, img, imgAlt = '', children }) {
+/** Navy page header with breadcrumbs, title and an optional right-hand photo (arch-shaped) or custom visual. */
+export function PageHero({ crumbs = [], eyebrow, title, intro, img, imgAlt = '', visual, children }) {
   return (
-    <section className={'phero' + (img ? ' has-img' : '')}>
+    <section className={'phero' + (img || visual ? ' has-img' : '')}>
       <div className="wrap">
         <div className="phero-copy">
           <nav className="crumbs" aria-label="Breadcrumb">
@@ -17,6 +17,7 @@ export function PageHero({ crumbs = [], eyebrow, title, intro, img, imgAlt = '',
           {children && <div className="phero-extra hz" style={{ '--d': '.3s' }}>{children}</div>}
         </div>
         {img && <div className="phero-img hz" style={{ '--d': '.2s' }}><img src={img} alt={imgAlt} /></div>}
+        {visual}
       </div>
     </section>
   )
