@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { site, doctors, departments } from '../data/site'
 import { reduceMotion } from '../hooks'
 import { Ico, paths, ArrowBadge } from './Icons'
@@ -7,7 +8,7 @@ const DURATION = 6500 // ms per slide; drives the tab progress bars via --dur
 
 // each slide pairs a background photo with the rotating headline word and a feature card
 const slides = [
-  { tab: 'Nephrology', word: 'healthy kidneys', img: '/img/operation-theatre.jpg', pos: '65% 50%', doc: doctors[0], role: 'Kidney transplant & dialysis' },
+  { tab: 'Nephrology', word: 'healthy kidneys', img: '/img/dialysis-unit.jpg', pos: '62% 45%', doc: doctors[0], role: 'Kidney transplant & dialysis' },
   { tab: 'Women & IVF', word: 'growing families', img: '/img/hospital-building.jpg', pos: '50% 30%', doc: doctors[1], role: 'Gynaecology, fertility & IVF' },
   { tab: 'Orthopaedics', word: 'active joints', img: '/img/operation-theatre.jpg', pos: '15% 45%', doc: doctors[2], role: 'Knee, shoulder & joint replacement' },
   { tab: 'Emergency', word: 'every emergency', img: '/img/hospital-building.jpg', pos: '50% 88%', emergency: true },
@@ -46,7 +47,7 @@ export default function Hero({ solidAt }) {
     // header turns solid once the hero has mostly scrolled away (straight away on stacked mobile layout)
     const set = () => { solidAt.current = innerWidth <= 900 ? 40 : Math.max(40, ref.current.offsetHeight - 90) }
     set(); addEventListener('resize', set)
-    return () => removeEventListener('resize', set)
+    return () => { removeEventListener('resize', set); solidAt.current = 40 }
   }, [solidAt])
 
   useEffect(() => {
@@ -95,10 +96,10 @@ export default function Hero({ solidAt }) {
               <div><small>24/7 emergency &amp; ambulance</small><b>{site.phone.display}</b><span className="note">Ventilator-equipped ambulances with expert paramedics</span></div>
             </a>
           ) : (
-            <a className="fcard" href="#doctors">
+            <Link className="fcard" to="/doctors">
               <img src={s.doc.img} alt={s.doc.name} />
               <div><small>{s.tab}</small><b>{s.doc.name}</b><span className="note">{s.doc.q} · {s.role}</span></div>
-            </a>
+            </Link>
           )}
         </div>
       </div>

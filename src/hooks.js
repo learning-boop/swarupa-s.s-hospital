@@ -20,22 +20,39 @@ export function useReveal(selector = '.rv,.wipe') {
 
 export const reduceMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
+let lenis = null // shared so route changes can jump to the top / to a hash
+
 /** Site-wide smooth scrolling (Lenis) driven by the GSAP ticker so ScrollTrigger stays in sync. */
 export function useSmoothScroll() {
   useEffect(() => {
     if (reduceMotion()) return
     document.documentElement.classList.add('lenis')
-    const lenis = new Lenis({ lerp: 0.09, anchors: { offset: -90 } })
+    lenis = new Lenis({ lerp: 0.09, anchors: { offset: -90 } })
     lenis.on('scroll', ScrollTrigger.update)
     const tick = t => lenis.raf(t * 1000)
     gsap.ticker.add(tick)
     gsap.ticker.lagSmoothing(0)
-    return () => { gsap.ticker.remove(tick); lenis.destroy(); document.documentElement.classList.remove('lenis') }
+    return () => { gsap.ticker.remove(tick); lenis.destroy(); lenis = null; document.documentElement.classList.remove('lenis') }
   }, [])
 }
 
-/** Each .panel.curve rises over the previous panel with a domed top that flattens as it scrolls up. */
-export function usePanelCurves() {
+/** On navigation: jump to the top (or to #hash once the new page has rendered) and re-measure scroll animations. */
+export function useRouteScroll(pathname, hash) {
+  useEffect(() => {
+    const go = () => {
+      const target = hash && document.querySelector(hash)
+      if (target) lenis ? lenis.scrollTo(target, { offset: -90, immediate: true }) : target.scrollIntoView()
+      else lenis ? lenis.scrollTo(0, { immediate: true, force: true }) : window.scrollTo(0, 0)
+      ScrollTrigger.refresh()
+    }
+    const id = requestAnimationFrame(() => requestAnimationFrame(go))
+    return () => cancelAnimationFrame(id)
+  }, [pathname, hash])
+}
+
+/** Each .panel.curve rises over the previous panel with a domed top that flattens as it scrolls up.
+ *  Re-run per route (key) because each page renders its own panels. */
+export function usePanelCurves(key) {
   useEffect(() => {
     if (reduceMotion()) return
     const ctx = gsap.context(() => {
@@ -45,5 +62,13 @@ export function usePanelCurves() {
       })
     })
     return () => ctx.revert()
-  }, [])
+  }, [key])
+}
+
+/** Sets the document title and meta description for a page. */
+export function usePageMeta(title, description) {
+  useEffect(() => {
+    document.title = title ? `${title} | Sri Swarupa Super Speciality Hospital, Vijayawada` : 'Sri Swarupa Super Speciality Hospital, Vijayawada'
+    if (description) document.querySelector('meta[name="description"]')?.setAttribute('content', description)
+  }, [title, description])
 }

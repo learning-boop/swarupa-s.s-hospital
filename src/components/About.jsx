@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { site } from '../data/site'
 import { useReveal } from '../hooks'
 import { Ico, paths, ArrowBadge } from './Icons'
@@ -22,7 +23,7 @@ export default function About() {
               {['NABH accreditation from the National Accreditation Board for Hospitals', 'Eleven departments with senior consultants under one roof', 'Emergency, ICU, dialysis, pharmacy and lab open 24 hours'].map(t => <li key={t}><Ico d={paths.check} />{t}</li>)}
             </ul>
             <p className="te">{site.taglineTelugu}</p>
-            <a className="btn btn-navy btn-arrow" href="#doctors" style={{ marginTop: 22 }}>Meet our consultants <ArrowBadge /></a>
+            <Link className="btn btn-navy btn-arrow" to="/doctors" style={{ marginTop: 22 }}>Meet our consultants <ArrowBadge /></Link>
           </div>
         </div>
       </section>

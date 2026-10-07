@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { departments, supportServices } from '../data/site'
+import { deptSlug } from '../data/pages'
 import { useReveal } from '../hooks'
 import { Ico, paths } from './Icons'
 
 // Photos live in public/img/departments/<slug>.jpg (e.g. nephrology.jpg); until one exists the card shows its icon art.
-export const deptSlug = name => name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
-function DeptPhoto({ d }) {
+export function DeptPhoto({ d }) {
   const [failed, setFailed] = useState(false)
   return (
     <div className={'ph' + (failed ? ' fallback' : '')}>
@@ -40,13 +41,13 @@ export default function Departments() {
         <div className="slider rv">
           <div className="track" ref={track}>
             {departments.map(d => (
-              <a key={d.name} className={'dcard ' + d.tone} href="#book">
+              <Link key={d.name} className={'dcard ' + d.tone} to={`/departments/${deptSlug(d.name)}`}>
                 <DeptPhoto d={d} />
                 <div className="body">
                   <div className="k">{d.sub}</div><h3>{d.name}</h3><p>{d.text}</p>
-                  <div className="more">Book a consultation <Ico d={paths.arrow} /></div>
+                  <div className="more">Explore department <Ico d={paths.arrow} /></div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
           <div className="snav">

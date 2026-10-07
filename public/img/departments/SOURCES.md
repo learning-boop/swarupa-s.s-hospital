@@ -6,7 +6,7 @@ Do not present people in these photos as Sri Swarupa staff or patients. Replace 
 | File | Source |
 |---|---|
 | anesthesiology.jpg | Hospital's own photo (copy of ../operation-theatre.jpg) |
-| nephrology.jpg | https://www.pexels.com/photo/hospital-monitor-with-iv-drip-in-cebu-city-clinic-36614082/ |
+| nephrology.jpg | Hospital's own photo (crop of ../dialysis-unit.jpg, the dialysis unit) |
 | urology.jpg | https://www.pexels.com/photo/male-doctor-talking-to-a-patient-6129441/ |
 | gynecology-and-obstetrics.jpg | https://www.pexels.com/photo/doctor-doing-an-ultrasound-7108418/ |
 | fertility-and-ivf.jpg | https://www.pexels.com/photo/a-person-in-white-lab-gown-looking-through-microscope-8940359/ |

@@ -12,8 +12,9 @@ export const site = {
   formEndpoint: null, // e.g. '/api/appointment.php'
 }
 
+// Main navigation (routes). Departments also opens a dropdown of every department.
 export const nav = [
-  ['#top','Home'],['#about','About Us'],['#departments','Departments'],['#doctors','Our Doctors'],['#stories','Patient Stories'],['#contact','Contact'],
+  ['/','Home'],['/about','About Us'],['/departments','Departments'],['/doctors','Our Doctors'],['/services','Services'],['/gallery','Gallery'],['/contact','Contact'],
 ]
 
 export const departments = [
@@ -45,6 +46,14 @@ export const doctors = [
   { name:'Dr. Chandana Veeramachaneni', telugu:'డా॥ చందన వీరమాచనేని', q:'MS (OBG)', text:'Gynaecology, obstetrics, infertility & laparoscopic specialist. Founder of Swarupa Fertility & IVF Centre.', img:'/img/dr-chandana-veeramachaneni.jpg' },
   { name:'Dr. Pavan Krishna Uppaluri', telugu:'డా॥ పవన్ కృష్ణ ఉప్పలూరి', q:'MS Ortho, FIASM, FIJR', text:'Knee & shoulder specialist. Fellow in arthroscopy & sports medicine (Manipal) and joint replacement (Saviour).', img:'/img/dr-pavan-krishna-uppaluri.jpg' },
 ]
+export const doctorsExtra = [
+  { name:'Dr. T. Jaya Prakash', q:'Pulmonologist', text:'Diagnosis and treatment of lung disorders, asthma, COPD and breathing problems.', img:'/img/dr-t-jaya-prakash.jpg' },
+]
+// Detailed profile shown on the Doctors page (from the previous site)
+export const chandanaProfile = {
+  education: [['2003 – 2006','MS, Obstetrics & Gynaecology','JJM Medical College, Davanagere'],['1996 – 2001','MBBS','Sri Devaraj Urs Medical College, Kolar']],
+  experience: [['2008 – present','Assistant Professor','Pinnamaneni Siddhartha Institute of Medical Sciences'],['2007 – 2008','Assistant Professor, Dept. of OBG','SVIMS, Government Maternity Hospital, Tirupati']],
+}
 export const moreDoctors = [
   { name:'Dr. G. Srinivasa Rao', q:'MS, MCh · Urologist & transplant surgeon', img:'/img/dr-g-srinivasa-rao.jpg' },
   { name:'Dr. K. Prashanth Kumar', q:'MS, MCh · Urologist & transplant surgeon' },

@@ -1,0 +1,10 @@
+# Apache / cPanel hosting: serve the React app for every route (e.g. /departments/nephrology).
+# Old .html links fall through to the app, which redirects them to their new pages.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  RewriteRule ^ index.html [L]
+</IfModule>
